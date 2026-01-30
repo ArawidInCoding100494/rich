@@ -1,0 +1,48 @@
+@import "tailwindcss";
+
+@layer base {
+  .btn {
+    @apply bg-[#2D5F5D] capitalize p-1 rounded-[10px] text-white font-bold px-2 cursor-pointer border duration-300 hover:bg-white hover:text-[#2D5F5D] hover:border-white;
+  }
+
+  .inp {
+    @apply border capitalize p-1 text-[#2D5F5D] outline-hidden rounded bg-white;
+  }
+
+  .title {
+    @apply capitalize font-bold my-1 text-white text-2xl;
+  }
+
+  .formLabel {
+    @apply my-2 px-2 flex flex-col capitalize;
+  }
+
+  .labelSpan {
+    @apply capitalize text-white text-[20px];
+  }
+
+  @media (max-width: 768px) {
+    .responsive-table td::before {
+      content: attr(data-label);
+      font-weight: 700;
+      text-transform: uppercase;
+      float: left;
+    }
+  }
+
+  table {
+    @apply min-w-full border-collapse;
+  }
+
+  th {
+    @apply bg-[#2D5F5D] text-white font-bold p-3 text-left border capitalize;
+  }
+
+  td {
+    @apply p-3 border bg-[#2D5F5D] text-white capitalize;
+  }
+
+  tr:hover {
+    @apply cursor-pointer;
+  }
+}
