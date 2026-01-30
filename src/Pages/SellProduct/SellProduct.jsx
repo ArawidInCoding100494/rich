@@ -1,6 +1,6 @@
 import { useState } from "react"
 import {UseCollection} from "../../Hooks/UseCollection"
-import SellingProduct from "../../Components/sellingProduct/sellingProduct"
+import SellingProduct from "../../Components/SellingProduct/SellingProduct"
 import Modal from "../../Components/Modal/Modal"
 
 
