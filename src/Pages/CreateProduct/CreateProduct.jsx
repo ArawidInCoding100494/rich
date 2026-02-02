@@ -78,7 +78,7 @@
 import { useEffect, useState } from "react";
 import { UseFireStore } from "../../Hooks/UseFireStore";
 
-const CreateProduct = () => {
+const CreateProduct = ({setOpenCreateProduct}) => {
   const {addDocument: products} = UseFireStore("products")
   const [bName, setBname] = useState("")
   const [pName, setPname] = useState("")
@@ -90,7 +90,7 @@ const CreateProduct = () => {
   // console.log(chooseSize);
   
 
-  const allSizes = ["50", "52", "54", "56", "58", "60", "62", "64", "s", "m", "l", "xl", "2xl", "3xl", "4xl"];
+  const allSizes = ["50", "52", "54", "56", "58", "60", "62", "64", "s", "m", "L", "xl", "2xl", "3xl", "4xl"];
 
   const handleSelectSize = (e) => {
     const selectedValue = e.target.value;
@@ -121,7 +121,6 @@ const CreateProduct = () => {
     setChooseSize(chooseSize.filter((item) => item.size !== size));
   };
 
-  // Har bir obyekt ichidagi 'count'ni qo'shib chiqadi
 const totalItems = chooseSize.reduce((total, item) => total + item.count, 0);
 
 useEffect(()=>{
@@ -133,13 +132,33 @@ setItogo(allsums)
   e.preventDefault();
 
   try {
+
+      const hozir = new Date();
+
+  const yil = hozir.getFullYear();
+  const oy = hozir.getMonth() + 1; 
+  const kun = hozir.getDate();
+  const soat = hozir.getHours();
+  const minut = hozir.getMinutes();
+
+  const toliqSana = `${kun}.${oy}.${yil} ${soat}:${minut}`;
+
+
     await products({
       bName,
       pName,
       cPrice: Number(cPrice),
       sizes: chooseSize,
-      itogo: Number(itogo),
-      createdAt: new Date().toLocaleDateString("uz-UZ") 
+      mainCount: chooseSize,
+      itogo: Number(itogo),      
+      vaqt: {
+      yil: yil,
+      oy: oy,
+      kun: kun,
+      soat: soat,
+      minut: minut,
+      full: toliqSana
+    }, 
     });
 
     alert("Maxsulot muvaffaqiyatli qo'shildi!");
@@ -149,6 +168,7 @@ setItogo(allsums)
     setCprice("");
     setItogo("");
     setChooseSize([]);
+    setOpenCreateProduct(false)
   } catch (error) {
     console.error("Xatolik yuz berdi:", error);
     alert("Xato: " + error.message);
@@ -159,7 +179,7 @@ setItogo(allsums)
   return (
     <div className='flex items-center justify-center h-full'>
       <div className="content bg-[#2D5F5D] rounded-2xl p-6 text-white w-96">
-        <h4 className="title text-center mb-4 font-bold uppercase">Maxsulot qo'shing!</h4>
+        <h4 className="title text-center mb-4 font-bold ">yangi maxsulot qo'shing!</h4>
         
         <form className='forma space-y-4 ' onSubmit={handleSubmit}>
 
@@ -182,7 +202,7 @@ setItogo(allsums)
             <span className='labelSpan'>maxsulot kelish narxi:</span>
             <input className='inp' 
             value={cPrice}
-            type="text" placeholder="kelish narxi.." onChange={(e)=>setCprice(e.target.value)} />
+            type="text" placeholder="kelish narxi.." onChange={(e)=>setCprice(e.target.value)} onWheel={(e) => e.target.blur()} />
           </label>
 
           <label className='formLabel'>
@@ -227,10 +247,13 @@ setItogo(allsums)
             <span className="text-white ml-5">{itogo ? itogo : 0 } sum</span>
           </div>
         
-
-            <button className=" btn w-full ">
+            <div className="btns">
+            <button className="btn" type="button" onClick={()=>setOpenCreateProduct(false)} >bekor qil</button>
+              <button className=" btn ml-3">
               SAQLASH
             </button>
+            </div>
+            
         </form>
       </div>
     </div>

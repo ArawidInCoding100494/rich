@@ -32,38 +32,57 @@ const SellingProduct = ({ productValue, setGetProductValue }) => {
     return;
   }
 
-  try {
-    // 2. "Sotilganlar" jadvaliga qo'shish
-    await addSoldProduct({
-      bName: productValue.bName,
-      pName: productValue.pName,
-      size: selectedSize,
-      sellAmount: Number(sellAmount),
-      sellPrice: Number(sellPrice),
-      calcingProfit: Number(calcingProfit),
-      calcItogo: Number(calcItogo),
-      sana: new Date().toLocaleDateString("uz-UZ"),
-      timestamp: new Date() // Saralash uchun kerak bo'ladi
-    });
+try {
+  const hozir = new Date();
 
-    // 3. Ombor (inventory) dagi sonini yangilash
-    // productValue.sizes massivini aylanib chiqamiz va tanlangan razmerni kamaytiramiz
+  const yil = hozir.getFullYear();
+  const oy = hozir.getMonth() + 1; 
+  const kun = hozir.getDate();
+  const soat = hozir.getHours();
+  const minut = hozir.getMinutes();
+
+  const toliqSana = `${kun}.${oy}.${yil} ${soat}:${minut}`;
+
+  await addSoldProduct({
+    bName: productValue.bName,
+    pName: productValue.pName,
+    size: selectedSize,
+    sellAmount: Number(sellAmount),
+    cPrice: Number(productValue.cPrice),
+    sellPrice: Number(sellPrice),
+    calcingProfit: Number(calcingProfit),
+    calcItogo: Number(calcItogo),
+    
+    vaqt: {
+      yil: yil,
+      oy: oy,
+      kun: kun,
+      soat: soat,
+      minut: minut,
+      full: toliqSana
+    },
+    
+    timestamp: hozir 
+  });
+
     const updatedSizes = productValue.sizes.map((item) => {
       if (item.size === selectedSize) {
         const newCount = item.count - Number(sellAmount);
-        return { ...item, count: newCount < 0 ? 0 : newCount }; // Minusga tushib ketmasligi uchun
+        return { ...item, count: newCount < 0 ? 0 : newCount }; 
       }
       return item;
     });
 
-    // 4. Firebase-da mahsulotni yangilaymiz
+    const allSold = (productValue.soldAmount || 0) + Number(sellAmount);
+
+
     await editProducts(productValue.id, {
-      sizes: updatedSizes
+      sizes: updatedSizes,
+      soldAmount: allSold
     });
 
     alert("Mahsulot sotildi va ombor yangilandi!");
 
-    // 5. State-larni tozalash
     setSellAmount("");
     setSellPrice("");
     setCalcItogo("");
@@ -120,6 +139,7 @@ const SellingProduct = ({ productValue, setGetProductValue }) => {
               placeholder="sotish soni..."
               value={sellAmount}
               onChange={(e)=>setSellAmount(e.target.value)}
+              onWheel={(e) => e.target.blur()}
             />
           </label>
 
@@ -132,6 +152,7 @@ const SellingProduct = ({ productValue, setGetProductValue }) => {
               placeholder="sotish narxi..."
               value={sellPrice}
               onChange={(e)=>setSellPrice(e.target.value)}
+              onWheel={(e) => e.target.blur()}
             />
           </label>
 

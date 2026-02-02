@@ -1,12 +1,37 @@
 @import "tailwindcss";
 
+
+
+/* ================= BASE ================= */
 @layer base {
+  table {
+    @apply min-w-full border-collapse;
+  }
+
+  th {
+    @apply bg-[#2D5F5D] text-white font-bold p-3 text-left border capitalize;
+  }
+
+  td {
+    @apply p-2 border bg-[#2D5F5D] text-white capitalize;
+  }
+
+  tr:hover {
+    @apply cursor-pointer;
+  }
+}
+
+/* ================= COMPONENTS ================= */
+@layer components {
   .btn {
-    @apply bg-[#2D5F5D] capitalize p-1 rounded-[10px] text-white font-bold px-2 cursor-pointer border duration-300 hover:bg-white hover:text-[#2D5F5D] hover:border-white;
+    @apply bg-[#2D5F5D] capitalize p-1 rounded-[10px]
+           text-white font-bold px-2 cursor-pointer border
+           duration-300 hover:bg-white hover:text-[#2D5F5D] hover:border-white;
   }
 
   .inp {
-    @apply border capitalize p-1 text-[#2D5F5D] outline-hidden rounded bg-white;
+    @apply border capitalize p-1 text-[#2D5F5D]
+           outline-none rounded bg-white;
   }
 
   .title {
@@ -21,28 +46,26 @@
     @apply capitalize text-white text-[20px];
   }
 
-  @media (max-width: 768px) {
-    .responsive-table td::before {
-      content: attr(data-label);
-      font-weight: 700;
-      text-transform: uppercase;
-      float: left;
-    }
+  /* ===== Responsive Table ===== */
+
+  .responsive-table {
+    @apply w-full border border-gray-300;
   }
 
-  table {
-    @apply min-w-full border-collapse;
+  .table-head {
+    @apply hidden md:table-header-group;
   }
 
-  th {
-    @apply bg-[#2D5F5D] text-white font-bold p-3 text-left border capitalize;
+  .table-card-row {
+    @apply block md:table-row border rounded-lg
+           shadow-sm mb-4 md:mb-0 md:shadow-none;
   }
 
-  td {
-    @apply p-3 border bg-[#2D5F5D] text-white capitalize;
-  }
-
-  tr:hover {
-    @apply cursor-pointer;
+  .table-card-cell {
+    @apply block md:table-cell px-3 py-2
+           before:content-[attr(data-label)':']
+           before:font-semibold
+           before:mr-2
+           md:before:hidden;
   }
 }

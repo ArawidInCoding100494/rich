@@ -6,6 +6,7 @@ import RootLayOut from "./RootLayOuts/RootLayOut"
 import SellProduct from "./Pages/SellProduct/SellProduct"
 import CreateProduct from "./Pages/CreateProduct/CreateProduct"
 import Xisobotlar from "./Pages/Xisobotlar/Xisobotlar"
+import Products from "./Pages/Products/Products"
 
 
 function App() {
@@ -15,7 +16,7 @@ function App() {
       <Route path="/">
         <Route  element={<RootLayOut/>} >
         <Route path="/" element={<SellProduct/>} />
-        <Route path="/CreateProduct" element={<CreateProduct/>} />
+        <Route path="/Products" element={<Products/>} />
         <Route path="/Xisobotlar" element={<Xisobotlar/>} />
         </Route>
       </Route>
