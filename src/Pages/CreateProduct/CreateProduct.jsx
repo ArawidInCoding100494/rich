@@ -178,7 +178,7 @@ setItogo(allsums)
 
   return (
     <div className='flex items-center justify-center h-full'>
-      <div className="content bg-[#2D5F5D] rounded-2xl p-6 text-white w-96">
+      <div className="content bg-[#2D5F5D] rounded-2xl p-6  text-white w-96 h-screen ml-3 lg:ml-0">
         <h4 className="title text-center mb-4 font-bold ">yangi maxsulot qo'shing!</h4>
         
         <form className='forma space-y-4 ' onSubmit={handleSubmit}>

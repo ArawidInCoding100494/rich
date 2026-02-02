@@ -56,7 +56,7 @@ const EditProduct = ({ editValue, setOpenEdit }) => {
 
   return (
     <div className="flex items-center justify-center h-full">
-      <div className="bg-[#2D5F5D] rounded-2xl p-6 text-white w-96">
+      <div className="bg-[#2D5F5D] rounded-2xl p-6 text-white w-96 h-screen ml-3 lg:ml-0">
         <form className="space-y-4" onSubmit={handleSubmit}>
           {/* Brand */}
           <label className="formLabel">

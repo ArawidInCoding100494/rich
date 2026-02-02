@@ -62,13 +62,13 @@ const Products = () => {
       </h4>
 
       <div className="relative">
-        <input
+        <input 
           type="text"
           placeholder="qidirish..."
-          className="inp p-0 pr-8"
+          className="inp p-0 pr-2 w-32 lg:w-auto"
           onChange={(e) => setSearchTerm(e.target.value)}
         />
-        <FaSearch className="absolute right-2 top-2 text-[#2D5F5D]" />
+        <FaSearch className="absolute right-2 top-2 text-[#2D5F5D]  "  />
       </div>
     </div>
   </caption>

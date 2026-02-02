@@ -65,7 +65,7 @@
     @apply block md:table-cell px-3 py-2
            before:content-[attr(data-label)':']
            before:font-semibold
-           before:mr-2
+           before:mr-3
            md:before:hidden;
   }
 }
