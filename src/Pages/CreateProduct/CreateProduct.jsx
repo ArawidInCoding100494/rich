@@ -83,6 +83,7 @@ const CreateProduct = ({setOpenCreateProduct}) => {
   const [bName, setBname] = useState("")
   const [pName, setPname] = useState("")
   const [cPrice, setCprice] = useState("")
+  const [pColor, setPcolor] = useState("")
   // Tanlangan razmerlarni massiv sifatida saqlaymiz
   const [chooseSize, setChooseSize] = useState([]);
   const [itogo, setItogo] = useState("")
@@ -148,6 +149,7 @@ setItogo(allsums)
       bName,
       pName,
       cPrice: Number(cPrice),
+      pColor,
       sizes: chooseSize,
       mainCount: chooseSize,
       itogo: Number(itogo),      
@@ -167,6 +169,7 @@ setItogo(allsums)
     setPname("");
     setCprice("");
     setItogo("");
+    setPcolor("")
     setChooseSize([]);
     setOpenCreateProduct(false)
   } catch (error) {
@@ -177,8 +180,8 @@ setItogo(allsums)
 
 
   return (
-    <div className='flex items-center justify-center h-full'>
-      <div className="content bg-[#2D5F5D] rounded-2xl p-6  text-white w-96 h-screen ml-3 lg:ml-0">
+    <div className='flex items-center justify-center'>
+      <div className="content bg-[#2D5F5D] rounded-2xl p-6  text-white w-96 h-full ml-3 lg:ml-0">
         <h4 className="title text-center mb-4 font-bold ">yangi maxsulot qo'shing!</h4>
         
         <form className='forma space-y-4 ' onSubmit={handleSubmit}>
@@ -196,6 +199,13 @@ setItogo(allsums)
             <input className='inp' 
             value={pName}
             type="text" placeholder="Nomi.." required onChange={(e)=>setPname(e.target.value)} />
+          </label>
+
+          <label className="formLabel">
+            <span className="labelSpan">Maxsulot rangi</span>
+              <input className="inp" type="text" placeholder="rangi..." required
+              onChange={(e)=> setPcolor(e.target.value)}  />
+            
           </label>
 
           <label className='formLabel'>
@@ -216,9 +226,9 @@ setItogo(allsums)
           </label>
 
           {/* Tanlangan razmerlar ro'yxati */}
-          <div className="addCount formLabel p-0 m-0">
+          <div className="addCount formLabel p-0 m-0 px-2">
             {chooseSize.map((item) => (
-              <div key={item.size} className="flex items-center justify-between bg-[#ffffff20]  rounded">
+              <div key={item.size} className="flex items-center justify-between bg-[#ffffff20]  rounded px-2">
                 <span className=" ">{item.size}:</span>
                 <input 
                   type="number"

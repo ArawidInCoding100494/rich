@@ -46,6 +46,7 @@ try {
   await addSoldProduct({
     bName: productValue.bName,
     pName: productValue.pName,
+    pColor: productValue.pColor,
     size: selectedSize,
     sellAmount: Number(sellAmount),
     cPrice: Number(productValue.cPrice),
@@ -110,6 +111,11 @@ try {
         <div className="flex items-center justify-between lg:w-70">
             <span>Maxsulot nomi:</span>
         <h3 className="font-bold lg:text-2xl text-[#2D5F5D] capitalize">{productValue.pName}</h3>
+        </div>
+
+        <div className="flex items-center justify-between lg:w-70">
+            <span>Maxsulot rangi:</span>
+        <h3 className="font-bold lg:text-2xl text-[#2D5F5D] capitalize">{productValue?.pColor}</h3>
         </div>
 
 

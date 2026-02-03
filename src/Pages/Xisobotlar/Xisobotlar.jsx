@@ -11,7 +11,6 @@ const Xisobotlar = () => {
   const isMonth = now.getMonth() + 1;
   const isYear = now.getFullYear();
 
-  // ASOSIY MANTIQ:
   const filteredData = soldProducts?.filter((product) => {
     const matchesSearch = 
       product.pName.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -28,11 +27,46 @@ const Xisobotlar = () => {
     }
   });
 
+  const todaySold = soldProducts?.filter(item =>
+  item.vaqt?.kun === isToday &&
+  item.vaqt?.oy === isMonth &&
+  item.vaqt?.yil === isYear
+);
+
+
+  // today-------------------------------
+    const todayAllAmounts = todaySold
+  ? todaySold.reduce((acc, item) => acc + Number(item.sellAmount || 0), 0)
+  : 0;
+
+  const todayAllsums = todaySold
+  ? todaySold.reduce((acc, item) => acc + Number(item.calcItogo || 0), 0)
+  : 0;
+
+    const todayAllProfits = todaySold
+  ? todaySold.reduce((acc, item) => acc + Number(item.calcingProfit || 0), 0)
+  : 0;
+
+  // -------------------------------------------------------------
+
+
+  const allAmounts = soldProducts
+  ? soldProducts.reduce((acc, item) => acc + Number(item.sellAmount || 0), 0)
+  : 0;
+
+  const allsums = soldProducts
+  ? soldProducts.reduce((acc, item) => acc + Number(item.calcItogo || 0), 0)
+  : 0;
+
+    const allProfits = soldProducts
+  ? soldProducts.reduce((acc, item) => acc + Number(item.calcingProfit || 0), 0)
+  : 0;
+
   return (
     <div >
       
 
-      <table className="w-full border-collapse shadow-lg">
+      <table className="responsive-table">
         <caption className="bg-[#2D5F5D] text-white  py-3 rounded-t-md ">
           <div className="flex justify-between items-center w-[60%] ml-auto pr-3">
            <h3 className="font-bold text-xl">Xisobotlar</h3>
@@ -48,10 +82,11 @@ const Xisobotlar = () => {
            </div>
 
         </caption>
-        <thead>
-          <tr className="bg-gray-200">
+        <thead className="table-head">
+          <tr>
             <th>Brend</th>
             <th>Maxsulot</th>
+            <th>rangi</th>
             <th>Razmer</th>
             <th>Soni</th>
             <th>Kelishi</th>
@@ -64,16 +99,17 @@ const Xisobotlar = () => {
         <tbody>
           {filteredData && filteredData.length > 0 ? (
             filteredData.map((product) => (
-              <tr key={product.id}>
-                <td >{product.bName}</td>
-                <td >{product.pName}</td>
-                <td >{product.size}</td>
-                <td >{product.sellAmount}</td>
-                <td >{product.cPrice}</td>
-                <td >{product.sellPrice}</td>
-                <td >{product.calcItogo}</td>
-                <td >{product.calcingProfit}</td>
-                <td >{product.vaqt?.full}</td>
+              <tr key={product.id} className="table-card-row">
+                <td  data-label="Brend" className="table-card-cell" >{product.bName}</td>
+                <td  data-label="Maxsulot" className="table-card-cell" >{product.pName}</td>
+                <td  data-label="rangi" className="table-card-cell" >{product?.pColor}</td>
+                <td  data-label="razmeri" className="table-card-cell" >{product.size}</td>
+                <td  data-label="soni" className="table-card-cell" >{product.sellAmount}</td>
+                <td  data-label="kelishi" className="table-card-cell" >{product.cPrice}</td>
+                <td  data-label="sotilishi" className="table-card-cell" >{product.sellPrice}</td>
+                <td  data-label="jami" className="table-card-cell" >{product.calcItogo}</td>
+                <td  data-label="foyda" className="table-card-cell" >{product.calcingProfit}</td>
+                <td  data-label="sana" className="table-card-cell" >{product.vaqt?.full}</td>
               </tr>
             ))
           ) : (
@@ -85,6 +121,22 @@ const Xisobotlar = () => {
           )}
         </tbody>
       </table>
+
+      <div className="today">
+        <h2 className="capitalize font-bold">bugungi jami xisobotlar</h2>
+        <h3>bugun sotilgan maxsulotlar soni: {todayAllAmounts}ta</h3>
+        <h3>bugun qilingan savdo: {todayAllsums}sum</h3>
+        <h3>bugun qilingan jami foyda: {todayAllProfits}sum</h3>
+      </div>
+
+      <div className="mt-10">
+        <h2 className="capitalize font-bold">shu kungacha jami xisobotlar</h2>
+        <h3>shu kungacha sotilgan maxsulotlar soni: {allAmounts}ta</h3>
+        <h3>shu kungacha qilingan savdo: {allsums}sum</h3>
+        <h3>shu kungacha qilingan jami foyda: {allProfits}sum</h3>
+      </div>
+
+
     </div>
   );
 };

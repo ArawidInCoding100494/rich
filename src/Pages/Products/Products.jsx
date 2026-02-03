@@ -78,6 +78,7 @@ const Products = () => {
     <tr>
       <th>brend</th>
       <th>maxsulot</th>
+      <th>rangi</th>
       <th>narxi</th>
       <th>keldi</th>
       <th>omborda</th>
@@ -111,6 +112,10 @@ const Products = () => {
               {product.pName}
             </td>
 
+            <td data-label="rangi" className="table-card-cell">
+              {product?.pColor}
+            </td>
+
             {/* Narxi */}
             <td data-label="Narxi" className="table-card-cell">
               {product.cPrice}
@@ -121,7 +126,7 @@ const Products = () => {
               data-label="Keldi"
               className="table-card-cell normal-case"
             >
-              {product.mainCount.map((item) => (
+              {product.mainCount?.map((item) => (
                 <div key={item.size}>
                   {item.size} = {item.count} ta
                 </div>
@@ -133,7 +138,7 @@ const Products = () => {
               data-label="Omborda"
               className="table-card-cell normal-case"
             >
-              {product.sizes.map((item) => (
+              {product.sizes?.map((item) => (
                 <div key={item.size}>
                   {item.size} = {item.count} ta
                 </div>

@@ -55,8 +55,8 @@ const EditProduct = ({ editValue, setOpenEdit }) => {
   if (!editData) return null;
 
   return (
-    <div className="flex items-center justify-center h-full">
-      <div className="bg-[#2D5F5D] rounded-2xl p-6 text-white w-96 h-screen ml-3 lg:ml-0">
+    <div className="flex items-center justify-center ">
+      <div className="bg-[#2D5F5D] rounded-2xl p-6 text-white w-96 h-full ml-3 lg:ml-0">
         <form className="space-y-4" onSubmit={handleSubmit}>
           {/* Brand */}
           <label className="formLabel">
@@ -76,6 +76,18 @@ const EditProduct = ({ editValue, setOpenEdit }) => {
             <input
               className="inp"
               value={editData.pName}
+              onChange={(e) =>
+                setEditData({ ...editData, pName: e.target.value })
+              }
+            />
+          </label>
+
+                    {/* color */}
+          <label className="formLabel">
+            <span>Mahsulot rangi</span>
+            <input
+              className="inp"
+              value={editData.pColor}
               onChange={(e) =>
                 setEditData({ ...editData, pName: e.target.value })
               }

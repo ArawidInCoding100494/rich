@@ -49,7 +49,7 @@
   /* ===== Responsive Table ===== */
 
   .responsive-table {
-    @apply w-full border border-gray-300;
+    @apply w-full  lg:border ;
   }
 
   .table-head {
@@ -57,12 +57,12 @@
   }
 
   .table-card-row {
-    @apply block md:table-row border rounded-lg
-           shadow-sm mb-4 md:mb-0 md:shadow-none;
+    @apply block md:table-row 
+           shadow-sm mb-5 md:mb-0 md:shadow-none;
   }
 
   .table-card-cell {
-    @apply block md:table-cell px-3 py-2
+    @apply block border-0 md:border md:table-cell px-3 py-2
            before:content-[attr(data-label)':']
            before:font-semibold
            before:mr-3

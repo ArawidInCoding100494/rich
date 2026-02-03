@@ -41,19 +41,20 @@ const SellProduct = () => {
               key={product.id}
             >
               <h3 className="capitalize font-bold text-2xl">{product.bName}</h3>
-              <div className="flex justify-between items-center ml-12 w-[50%] my-3">
+              <div className="flex justify-between items-center ml-12 w-[70%] my-3">
                 <h3 className="text-[18px] font-bold">{product.pName}</h3>
+                <h3 className="text-[18px] font-bold">{product?.pColor}</h3>
                 <h3>{product.cPrice}</h3>
               </div>
               <h3 className="flex items-center justify-between w-[50%] ml-12">
-                {product.sizes.map((size) => (
+                {product.sizes?.map((size) => (
                   <p key={size.size}>
                     {size.size}={size.count}
                   </p>
                 ))}
               </h3>
               <button
-                className="btn absolute bottom-7 right-12"
+                className="btn absolute bottom-2 right-12"
                 onClick={() => setGetProductValue(product)}
               >
                 sell
