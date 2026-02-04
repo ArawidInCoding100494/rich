@@ -96,6 +96,7 @@ const Products = () => {
           if (searchTerm.trim() === "") return product;
           return (
             product.pName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            product.pColor?.toLowerCase().includes(searchTerm.toLowerCase()) ||
             product.bName.toLowerCase().includes(searchTerm.toLowerCase())
           );
         })

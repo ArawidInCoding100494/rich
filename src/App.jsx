@@ -1,29 +1,43 @@
 
 
 // rrd imports
-import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider } from "react-router-dom"
+import { createBrowserRouter, createRoutesFromElements, Navigate, Route, RouterProvider } from "react-router-dom"
 import RootLayOut from "./RootLayOuts/RootLayOut"
 import SellProduct from "./Pages/SellProduct/SellProduct"
 import CreateProduct from "./Pages/CreateProduct/CreateProduct"
 import Xisobotlar from "./Pages/Xisobotlar/Xisobotlar"
 import Products from "./Pages/Products/Products"
+import {UseGlobalContext} from "./Hooks/UseGlobalContext"
+import ProtectedRoutes from "./Components/ProtectedRoutes/ProtectedRoutes"
+import Login from "./Pages/Auth/Login"
+import SignUp from "./Pages/Auth/SignUp"
 
 
 function App() {
+  const { user, authReady } = UseGlobalContext()
 
   const routes = createBrowserRouter(
     createRoutesFromElements(
       <Route path="/">
-        <Route  element={<RootLayOut/>} >
+        <Route  element={
+          <ProtectedRoutes user={user}>
+          <RootLayOut user={user}/>
+        </ProtectedRoutes>}>
+
         <Route path="/" element={<SellProduct/>} />
         <Route path="/Products" element={<Products/>} />
         <Route path="/Xisobotlar" element={<Xisobotlar/>} />
         </Route>
+        <Route path="Login" element={user ? <Navigate to="/" /> : <Login />} />
+        <Route
+          path="SignUp"
+          element={user ? <Navigate to="/" /> : <SignUp />}
+        />
       </Route>
     )
   )
 
-  return <RouterProvider router={routes} />
+    return <>{authReady && <RouterProvider router={routes} />}</>;
 }
 
 export default App

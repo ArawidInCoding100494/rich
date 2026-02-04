@@ -1,7 +1,10 @@
 import { useEffect, useState } from "react";
+import { UseFireStore } from "../../Hooks/UseFireStore";
 
 const EditProduct = ({ editValue, setOpenEdit }) => {
+  const {editDocument: editProduct} = UseFireStore("products")
   const [editData, setEditData] = useState(null);
+  // console.log(editValue.id)
 
   // props kelganda state ga ko‘chiramiz
   useEffect(() => {
@@ -45,10 +48,13 @@ const EditProduct = ({ editValue, setOpenEdit }) => {
   // ===== submit =====
   const handleSubmit = (e) => {
     e.preventDefault();
+    // console.log(editData.sizes)
 
-    console.log("EDIT DATA (tayyor):", editData);
+editProduct(editValue.id, editData)
+  .then(() => alert("Mahsulot tahrirlandi"))
+  .catch((error) => console.log(error.message));
 
-    // 🔥 bu yerda backend / firestore update qilasan
+
     setOpenEdit(false);
   };
 

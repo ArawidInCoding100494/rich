@@ -5,6 +5,7 @@ import { FaSearch } from "react-icons/fa";
 const Xisobotlar = () => {
   const { data: soldProducts } = UseCollection("soldProduct");
   const [searchTerm, setSearchTerm] = useState("");
+  const [showXisobotText, setShowXisobotText] = useState(false)
   
   const now = new Date();
   const isToday = now.getDate();
@@ -14,6 +15,7 @@ const Xisobotlar = () => {
   const filteredData = soldProducts?.filter((product) => {
     const matchesSearch = 
       product.pName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      product.pColor?.toLowerCase().includes(searchTerm.toLowerCase()) ||
       product.bName.toLowerCase().includes(searchTerm.toLowerCase());
 
     if (searchTerm.trim() !== "") {
@@ -68,7 +70,7 @@ const Xisobotlar = () => {
 
       <table className="responsive-table">
         <caption className="bg-[#2D5F5D] text-white  py-3 rounded-t-md ">
-          <div className="flex justify-between items-center w-[60%] ml-auto pr-3">
+          <div className="flex justify-between items-center lg:w-[60%] ml-auto px-3">
            <h3 className="font-bold text-xl">Xisobotlar</h3>
           <div className="relative">
         <input
@@ -122,18 +124,29 @@ const Xisobotlar = () => {
         </tbody>
       </table>
 
-      <div className="today">
+      <div className="today mt-5">
+        <div>
         <h2 className="capitalize font-bold">bugungi jami xisobotlar</h2>
         <h3>bugun sotilgan maxsulotlar soni: {todayAllAmounts}ta</h3>
         <h3>bugun qilingan savdo: {todayAllsums}sum</h3>
         <h3>bugun qilingan jami foyda: {todayAllProfits}sum</h3>
+        </div>
+        <div className="kalendar"></div>
       </div>
 
       <div className="mt-10">
+        <div>
+          <button className="btn" onClick={()=>setShowXisobotText(true)}>jami xisobotlar</button>
+          <button className="btn" onClick={()=>setShowXisobotText(false)}>hide</button>
+        </div>
+
+        {showXisobotText && <div>
         <h2 className="capitalize font-bold">shu kungacha jami xisobotlar</h2>
         <h3>shu kungacha sotilgan maxsulotlar soni: {allAmounts}ta</h3>
         <h3>shu kungacha qilingan savdo: {allsums}sum</h3>
         <h3>shu kungacha qilingan jami foyda: {allProfits}sum</h3>
+        </div>}
+
       </div>
 
 

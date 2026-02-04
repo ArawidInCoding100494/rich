@@ -109,7 +109,7 @@ try {
         </div>
 
         <div className="flex items-center justify-between lg:w-70">
-            <span>Maxsulot nomi:</span>
+            <span>Max nomi:</span>
         <h3 className="font-bold lg:text-2xl text-[#2D5F5D] capitalize">{productValue.pName}</h3>
         </div>
 

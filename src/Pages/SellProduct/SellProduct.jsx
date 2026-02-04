@@ -19,7 +19,7 @@ const SellProduct = () => {
             <input
               type="text"
               placeholder="qidirish..."
-              className="inp  p-0"
+              className="inp  p-0 w-38 lg:w-auto"
               onChange={(e) => setSearchTerm(e.target.value)}
             />
             <FaSearch className="absolute right-3 top-2 text-[#2D5F5D]" />
@@ -30,11 +30,13 @@ const SellProduct = () => {
       {products &&
         products
           .filter((product) => {
-            return searchTerm.toLowerCase() === ""
-              ? product
-              : product.pName.toLowerCase().includes(searchTerm) ||
-                  product.bName.toLowerCase().includes(searchTerm);
-          })
+          if (searchTerm.trim() === "") return product;
+          return (
+            product.pName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            product.pColor?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            product.bName.toLowerCase().includes(searchTerm.toLowerCase())
+          );
+        })
           .map((product) => (
             <div
               className="card border cursor-pointer bg-[#2D5F5D] text-white capitalize relative my-2 p-3 rounded-2xl lg:my-1 duration-400 hover:bg-white hover:text-[#2D5F5D]"
