@@ -17,7 +17,7 @@ const RootLayOut = ({user}) => {
 
 
         <nav className="lg:w-[15%]">
-          {role === "ali@gmail.com" ? (
+          {role === "ali@gmail.com" || "umarjon@gmail.com" ? (
             <div className="w-full p-2 grid grid-cols-3 gap-2 shrink-0
                lg:grid-cols-1 lg:w-full lg:flex lg:flex-col lg:overflow-y-auto"
           >
