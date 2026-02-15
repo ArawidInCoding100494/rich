@@ -4,18 +4,26 @@ import CreateProduct from "../CreateProduct/CreateProduct"
 import Modal from "../../Components/Modal/Modal"
 import { FaSearch } from "react-icons/fa";
 import EditProduct from "../../Components/EditProduct/EditProduct";
+import { UseFireStore } from "../../Hooks/UseFireStore";
 
 
 
 
 const Products = () => {
   const {data: readProducts} = UseCollection("products")
+  const {deleteDocument: deleteProduct} = UseFireStore("products")
   const [openCreateProduct, setOpenCreateProduct] = useState(false)
   const [searchTerm, setSearchTerm] = useState("");
   const [openEdit, setOpenEdit] = useState(false)
   // console.log(openEdit);
   
 
+  const handleDelete = (id) => {
+  const isConfirm = window.confirm("Rostdan ham o‘chirmoqchimisiz?");
+  if (!isConfirm) return;
+
+  deleteProduct(id);
+};
 
 
 
@@ -85,6 +93,7 @@ const Products = () => {
       <th>sotildi</th>
       <th>sana</th>
       <th>tahrir</th>
+      <th>delete</th>
     </tr>
   </thead>
 
@@ -165,8 +174,16 @@ const Products = () => {
                 className="cursor-pointer"
                 onClick={() => setOpenEdit(product)}
               >
-                🖊
+                taxrir 🖊
               </button>
+            </td>
+            <td>
+                <button
+                  className="text-red-600 hover:underline"
+                  onClick={() => handleDelete(product.id)}
+                >
+                  delete 🗑
+                </button>
             </td>
 
           </tr>
